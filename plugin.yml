@@ -1,0 +1,59 @@
+name: CustomMessages
+version: 1.4.2
+main: com.psyco.tplmc.CustomMessages.CustomMessages
+authors: [Psycowithespn]
+commands:
+    customquit:
+        description: Custom Quit Message
+        usage: /<command> <message> - Setting Custom Quit Message
+    colors:
+        description: Shows Color Codes
+        usage: /<command>
+    customjoin:
+        description: Custom Join Message
+        usage: /<command> <message> - Setting Custom Join Message
+    resetjoin:
+        description: Resets Custom Join Message
+        usage: /<command> - Resetting Custom Join Message
+    resetquit:
+        description: Resets Custom Quit Message
+        usage: /<command> - Resetting Custom Quit Message
+    customglobalquit:
+        description: Global Quit Message
+        usage: /<command> <message> - Setting Global Quit Message
+    customglobaljoin:
+        description: Global Quit Message
+        usage: /<command> <message> - Setting Global Join Message
+    resetglobaljoin:
+        description: Resets Global Join Message
+        usage: /<command> - Resets Global Join Message
+    resetglobalquit:
+        description: Resets Global Quit Message
+        usage: /<command> - Resets Global Quit Message    
+    customquito:
+        description: Custom Quit Message For Others
+        usage: /<command> <message> - Setting Custom Quit Message
+    customjoino:
+        description: Custom Join Message
+        usage: /<command> <message> - Setting Custom Join Message For Others
+    resetjoino:
+        description: Resets Custom Join Message For Others
+        usage: /<command> - Resettting Custom Join Message For Others
+    resetquito:
+        description: Resets Custom Quit Message For Others
+        usage: /<command> - Resetting Custom Quit Message For Others
+    updatecm:
+        decription: Downloads any updates to CustomMessages
+        usage: /<command> - Updates Custom Messages
+    checkjoin:
+        description: Shows a current join message of you or another
+        usage: /<command> [player] - Shows a player's join message
+    checkquit:
+        description: Shows a current quit message of you or another
+        usage: /<command> [player] - Shows a player's quit message
+    checkglobaljoin:
+        description: Shows the server's default join message
+        usage: /<command> - Shows the servers join message
+    checkglobalquit:
+        description: Shows the server's default quit message
+        usage: /<command> - Shows the servers quit message
