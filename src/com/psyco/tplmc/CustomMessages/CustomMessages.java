@@ -104,28 +104,15 @@ public class CustomMessages extends JavaPlugin {
 		}
 	}
 
-
 	public boolean onCommand(CommandSender sender, Command command,
 			String label, String[] args) {
-		if(!(args.length ==0)){
+		if (!(args.length == 0)) {
 			String str = "";
-			for(int i =0; i < args.length;i++){
+			for (int i = 0; i < args.length; i++) {
 				str += args[i] + " ";
 			}
 		}
 
-		// if (command.getName().equalsIgnoreCase("ckick")) {
-		// if (hasPerms((Player) sender, "CustomMessages.ckick")) {
-		// player = "";
-		// player = isOnline(args[0]);
-		// if (player == null) {
-		// sender.sendMessage(ChatColor.RED
-		// + "Could not find the player online.");
-		// return true;
-		//
-		// }
-		// }
-		// }
 		if (command.getName().equalsIgnoreCase("updatecm")) {
 			if (hasPerms(sender, "CustomMessages.Update") || sender.isOp()) {
 				OKUpdaterPlayer.update(name, version, checklocation,
@@ -186,7 +173,8 @@ public class CustomMessages extends JavaPlugin {
 					playerOption = playerOption + " " + s;
 				}
 				playerOption = playerOption.trim();
-				playerOption = config.setColoredMessage(cmdPlayer, playerOption, "Join");
+				playerOption = config.setColoredMessage(cmdPlayer,
+						playerOption, "Join");
 				cmdPlayer.sendMessage("Your new join message is "
 						+ playerOption + ChatColor.WHITE + ".");
 				return true;
@@ -296,7 +284,7 @@ public class CustomMessages extends JavaPlugin {
 					playerOption = playerOption + " " + s;
 				}
 				playerOption = playerOption.trim();
-				playerOption = config.setGlobalMessage(playerOption,"Join");
+				playerOption = config.setGlobalMessage(playerOption, "Join");
 				cmdPlayer.sendMessage("Your new global join message is "
 						+ playerOption + ChatColor.WHITE + ".");
 				return true;
@@ -324,7 +312,7 @@ public class CustomMessages extends JavaPlugin {
 					playerOption = playerOption + " " + s;
 				}
 				playerOption = playerOption.trim();
-				playerOption = config.setGlobalMessage(playerOption,"Quit");
+				playerOption = config.setGlobalMessage(playerOption, "Quit");
 				cmdPlayer.sendMessage("Your new global quit message is "
 						+ playerOption + ChatColor.WHITE + ".");
 				return true;
@@ -351,7 +339,8 @@ public class CustomMessages extends JavaPlugin {
 						playerOption = playerOption + " " + s;
 					}
 					playerOption = playerOption.trim();
-					playerOption = config.setColoredMessage(getServer().getPlayer(playerIsOnline),playerOption, "Join");
+					playerOption = config.setColoredMessage(getServer()
+							.getPlayer(playerIsOnline), playerOption, "Join");
 					cmdPlayer.sendMessage("You set " + playerIsOnline
 							+ "'s join message to " + playerOption
 							+ ChatColor.WHITE + ".");
@@ -388,7 +377,8 @@ public class CustomMessages extends JavaPlugin {
 						playerOption = playerOption + " " + s;
 					}
 					playerOption = playerOption.trim();
-					playerOption = config.setColoredMessage(getServer().getPlayer(playerIsOnline),playerOption, "Quit");
+					playerOption = config.setColoredMessage(getServer()
+							.getPlayer(playerIsOnline), playerOption, "Quit");
 					cmdPlayer.sendMessage("You set " + playerIsOnline
 							+ "'s quit message to " + playerOption
 							+ ChatColor.WHITE + ".");
@@ -419,7 +409,8 @@ public class CustomMessages extends JavaPlugin {
 
 				if (hasPerms(cmdPlayer, "CustomMessages.quito")
 						|| cmdPlayer.isOp()) {
-					config.resetColoredMessage(getServer().getPlayer(playerIsOnline),"Quit");
+					config.resetColoredMessage(
+							getServer().getPlayer(playerIsOnline), "Quit");
 					cmdPlayer.sendMessage("You set " + playerIsOnline
 							+ "'s quit message to the global default.");
 					getServer().getPlayer(playerIsOnline).sendMessage(
@@ -448,7 +439,8 @@ public class CustomMessages extends JavaPlugin {
 
 				if (hasPerms(cmdPlayer, "CustomMessages.joino")
 						|| cmdPlayer.isOp()) {
-					config.resetColoredMessage(getServer().getPlayer(playerIsOnline),"Join");
+					config.resetColoredMessage(
+							getServer().getPlayer(playerIsOnline), "Join");
 					cmdPlayer.sendMessage("You set " + playerIsOnline
 							+ "'s join message to the global default.");
 					getServer().getPlayer(playerIsOnline).sendMessage(
@@ -483,8 +475,9 @@ public class CustomMessages extends JavaPlugin {
 			}
 			return perms.has((Player) sender, node);
 
+		} else {
+			return sender.hasPermission(node);
 		}
-		return false;
 	}
 
 	public String isOnline(String b) {
@@ -498,6 +491,5 @@ public class CustomMessages extends JavaPlugin {
 		return null;
 
 	}
-
 
 }
