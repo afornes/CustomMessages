@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 1.4.3
+version: 1.4.4
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 authors: [Psycowithespn]
 commands:
@@ -42,9 +42,6 @@ commands:
     resetquito:
         description: Resets Custom Quit Message For Others
         usage: /<command> - Resetting Custom Quit Message For Others
-    updatecm:
-        decription: Downloads any updates to CustomMessages
-        usage: /<command> - Updates Custom Messages
     checkjoin:
         description: Shows a current join message of you or another
         usage: /<command> [player] - Shows a player's join message

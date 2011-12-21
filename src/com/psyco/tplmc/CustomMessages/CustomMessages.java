@@ -3,8 +3,6 @@ package com.psyco.tplmc.CustomMessages;
 import java.io.File;
 import java.util.logging.Logger;
 
-import me.kalmanolah.extras.OKUpdater;
-
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -20,26 +18,22 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class CustomMessages extends JavaPlugin {
 
+    //TODO: Add SuperPerms support, Use new configuration, Log stuff
+
 	public com.psyco.tplmc.CustomMessages.configuration.Configuration config;
-	public String globalQuitMessage;
-	public String globalJoinMessage;
 	public PluginManager pm;
 	public pListener playerL;
 	public static PermissionHandler perms;
 	public String playerOption;
 	public Player cmdPlayer;
 	public String colors = "&00&11&22&33&44&55&66&77&88&99&aa&bb&cc&dd&ee&ff";
-	public String message;
-	public boolean usePerms;
 	public String playerIsOnline;
 	public Logger log;
-	public String player;
 	public String name;
 	public String version;
 	public String checklocation;
 	public String downloadlocation;
 	public String logprefix;
-	public boolean autoUpdate;
 	public GetMessagesJ gmj;
 	public GetMessagesGJ gmgj;
 	public GetMessagesGQ gmgq;
@@ -59,24 +53,7 @@ public class CustomMessages extends JavaPlugin {
 		config = new com.psyco.tplmc.CustomMessages.configuration.Configuration(
 				this);
 
-		name = this.getDescription().getName();
-
-		version = this.getDescription().getVersion();
-
-		checklocation = "http://tplmc.net/psycowithespn/check.php";
-
-		downloadlocation = "http://tplmc.net/psycowithespn/dl.php";
-
-		log = Logger.getLogger("Minecraft");
-
-		logprefix = "[" + name + "] ";
 		config.loadConfig();
-		if (config.getAutoUpdate()) {
-			OKUpdater.update(name, version, checklocation, downloadlocation,
-					log, logprefix);
-		} else {
-			log.info(logprefix + "Auto-Updating is disabled.");
-		}
 		setupPermissions();
 
 		PluginManager pm = getServer().getPluginManager();
@@ -98,10 +75,6 @@ public class CustomMessages extends JavaPlugin {
 
 		Plugin permissionsPlugin = this.getServer().getPluginManager()
 				.getPlugin("Permissions");
-
-		if (permissionsPlugin == null) {
-			return;
-		}
 	}
 
 	public boolean onCommand(CommandSender sender, Command command,
@@ -113,17 +86,6 @@ public class CustomMessages extends JavaPlugin {
 			}
 		}
 
-		if (command.getName().equalsIgnoreCase("updatecm")) {
-			if (hasPerms(sender, "CustomMessages.Update") || sender.isOp()) {
-				OKUpdaterPlayer.update(name, version, checklocation,
-						downloadlocation, sender, logprefix);
-				return true;
-			}
-			sender.sendMessage(ChatColor.RED
-					+ "You dont have permissions to update CustomMessages.");
-			return true;
-
-		}
 		if (command.getName().equalsIgnoreCase("customquit")) {
 			playerOption = " ";
 			if (!(sender instanceof Player)) {

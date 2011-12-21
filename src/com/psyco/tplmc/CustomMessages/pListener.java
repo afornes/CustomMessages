@@ -15,7 +15,7 @@ public class pListener extends PlayerListener {
 	@Override
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		if(event.getQuitMessage() != null){
-		plugin.config.getColoredMessage(event.getPlayer(), "Quit");
+		event.setQuitMessage(plugin.config.getColoredMessage(event.getPlayer(), "Quit"));
 		/*Player ep = event.getPlayer();
 		for(Player p : plugin.getServer().getOnlinePlayers()){
 			SpoutPlayer sp = (SpoutPlayer)p;
@@ -30,7 +30,7 @@ public class pListener extends PlayerListener {
 	@Override
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(event.getJoinMessage() != null){
-			plugin.config.getColoredMessage(event.getPlayer(), "Join");
+		    event.setJoinMessage(plugin.config.getColoredMessage(event.getPlayer(), "Join"));
 		/*Player ep = event.getPlayer();
 		for(Player p : plugin.getServer().getOnlinePlayers()){
 			SpoutPlayer sp = (SpoutPlayer)p;
