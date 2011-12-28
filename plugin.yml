@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 1.4.4
+version: 1.4.4.1
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 authors: [Psycowithespn]
 commands:

@@ -37,15 +37,13 @@ public class Configuration {
         config = new org.bukkit.util.config.Configuration(new File(plugin
                 .getDataFolder().getPath() + "/config.yml"));
         loadConfig();
-        cMap.clear();
-        cMap = config.getAll();
     }
 
     public String getColoredMessage(Player p, String action) {
         String name = p.getName();
         String actionLC = action.toLowerCase();
         String message = null;
-        if (cMap.containsKey("users" + name + "." + actionLC)) {
+        if (cMap.containsKey("users." + name + "." + actionLC)) {
             message = (String) cMap
                     .get("users." + name + "." + actionLC);
             if (message != null) {
