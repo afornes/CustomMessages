@@ -4,6 +4,7 @@ import com.psyco.tplmc.CustomMessages.CustomMessages;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,12 +48,14 @@ public class Configuration {
             message = (String) cMap
                     .get("users." + name + "." + actionLC);
             if (message != null) {
-                return message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replace("/name", p.getDisplayName());
+                message =  message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replaceAll("/name", p.getDisplayName());
+                return message.replaceAll("/count", Arrays.asList(plugin.getServer().getOfflinePlayers()).size() + "");
             }
         }
         message = getGlobalMessage(action);
         if (message != null) {
-            return message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replace("/name", p.getDisplayName());
+            message =  message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replaceAll("/name", p.getDisplayName());
+            return message.replaceAll("/count", Arrays.asList(plugin.getServer().getOfflinePlayers()).size() + "");
         }
         return message;
     }
