@@ -1,20 +1,15 @@
 package com.psyco.tplmc.CustomMessages;
 
-import java.io.File;
-import java.util.logging.Logger;
-
+import com.nijiko.permissions.PermissionHandler;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
+import java.util.logging.Logger;
 
 public class CustomMessages extends JavaPlugin {
 
@@ -57,10 +52,7 @@ public class CustomMessages extends JavaPlugin {
 		setupPermissions();
 
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Event.Type.PLAYER_QUIT, playerL,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Event.Type.PLAYER_JOIN, playerL,
-				Event.Priority.Normal, this);
+		pm.registerEvents(playerL, this);
 		getCommand("checkjoin").setExecutor(gmj);
 		getCommand("checkquit").setExecutor(gmq);
 		getCommand("checkglobaljoin").setExecutor(gmgj);

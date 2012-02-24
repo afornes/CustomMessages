@@ -1,52 +1,51 @@
 package com.psyco.tplmc.CustomMessages.configuration;
 
 import com.psyco.tplmc.CustomMessages.CustomMessages;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
-    private Map<String, Object> cMap = new HashMap<String, Object>();
+    
     private CustomMessages plugin;
-    private org.bukkit.util.config.Configuration config;
+    private YamlConfiguration config;
+    private File configFile;
 
     public Configuration(CustomMessages instance) {
         this.plugin = instance;
     }
 
     public void loadConfig() {
-        cMap.clear();
-        config = new org.bukkit.util.config.Configuration(new File(plugin
-                .getDataFolder().getPath() + "/config.yml"));
-        config.load();
+        configFile = new File(plugin.getDataFolder(), "config.yml");
+        config = YamlConfiguration.loadConfiguration(configFile);
         config.getBoolean("Config.Use-Permissions-For-Messages", true);
         config.getBoolean("Config.Auto-Update", true);
         config.getString("Config.Global-Quit-Message",
                 "&e/name &eleft the game.");
         config.getString("Config.Global-Join-Message",
                 "&e/name &ejoined the game.");
-        config.save();
-        cMap = config.getAll();
-
+        saveConfig();
     }
 
     public void saveConfig() {
-        config.save();
-        config = new org.bukkit.util.config.Configuration(new File(plugin
-                .getDataFolder().getPath() + "/config.yml"));
-        loadConfig();
+        try {
+            config.save(configFile);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public String getColoredMessage(Player p, String action) {
         String name = p.getName();
         String actionLC = action.toLowerCase();
         String message = null;
-        if (cMap.containsKey("users." + name + "." + actionLC)) {
-            message = (String) cMap
-                    .get("users." + name + "." + actionLC);
+        if (config.contains("users." + name + "." + actionLC)) {
+            message = config.getString("users." + name + "." + actionLC);
             if (message != null) {
                 message =  message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replaceAll("/name", p.getDisplayName());
                 return message.replaceAll("/count", Arrays.asList(plugin.getServer().getOfflinePlayers()).size() + "");
@@ -63,42 +62,42 @@ public class Configuration {
     public String setColoredMessage(Player p, String message, String action) {
         String name = p.getName();
         action = action.toLowerCase();
-        config.setProperty("users." + name + "." + action, message);
+        config.set("users." + name + "." + action, message);
         saveConfig();
         return message.replaceAll("(&([a-f0-9]))", "\u00A7$2");
     }
 
     public String getGlobalMessage(String action) {
-        return ((String) cMap.get("Config.Global-" + action + "-Message"))
+        return (config.getString("Config.Global-" + action + "-Message"))
                 .replaceAll("(&([a-f0-9]))", "\u00A7$2");
     }
 
     public String setGlobalMessage(String message, String action) {
-        config.setProperty("Config.Global-" + action + "-Message", message);
+        config.set("Config.Global-" + action + "-Message", message);
         saveConfig();
         return message.replaceAll("(&([a-f0-9]))", "\u00A7$2");
     }
 
     public boolean getRequiredPerms() {
-        return (Boolean) cMap.get("Config.Use-Permissions-For-Messages");
+        return config.getBoolean("Config.Use-Permissions-For-Messages");
     }
 
     public boolean getAutoUpdate() {
-        return (Boolean) cMap.get("Config.Auto-Update");
+        return config.getBoolean("Config.Auto-Update");
     }
 
     public void resetColoredMessage(Player p, String action) {
         action = action.toLowerCase();
-        if (cMap.containsKey("users." + p.getName() + "." + action)) {
+        if (config.contains("users." + p.getName() + "." + action)) {
 
 
-            config.removeProperty("users." + p.getName() + "." + action);
+            config.set("users." + p.getName() + "." + action, null);
             saveConfig();
         }
     }
 
     public void resetGlobalMessage(String action) {
-        config.removeProperty("Config.Global-" + action + "-Message");
+        config.set("Config.Global-" + action + "-Message", null);
         saveConfig();
     }
 }
