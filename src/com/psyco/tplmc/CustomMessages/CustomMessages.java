@@ -86,7 +86,7 @@ public class CustomMessages extends JavaPlugin {
 				return true;
 			}
 			cmdPlayer = (Player) sender;
-			if (hasPerms(cmdPlayer, "CustomMessages.quit") || cmdPlayer.isOp()) {
+			if (hasPerms(cmdPlayer, "CustomMessages.quit") || cmdPlayer.hasPermission("CustomMessages.quit")) {
 
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.RED
@@ -117,7 +117,7 @@ public class CustomMessages extends JavaPlugin {
 			}
 			cmdPlayer = (Player) sender;
 
-			if (hasPerms(cmdPlayer, "CustomMessages.join") || cmdPlayer.isOp()) {
+			if (hasPerms(cmdPlayer, "CustomMessages.join") || cmdPlayer.hasPermission("CustomMessages.join")) {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.RED
 							+ "Usage is /customjoin <message>");
@@ -150,7 +150,7 @@ public class CustomMessages extends JavaPlugin {
 			}
 			cmdPlayer = (Player) sender;
 
-			if (hasPerms(cmdPlayer, "CustomMessages.quit") || cmdPlayer.isOp()) {
+			if (hasPerms(cmdPlayer, "CustomMessages.quit") || cmdPlayer.hasPermission("CustomMessages.quit")) {
 				config.resetColoredMessage(cmdPlayer, "Quit");
 				cmdPlayer
 						.sendMessage(ChatColor.RED
@@ -168,7 +168,7 @@ public class CustomMessages extends JavaPlugin {
 			}
 			cmdPlayer = (Player) sender;
 
-			if (hasPerms(cmdPlayer, "CustomMessages.join") || cmdPlayer.isOp()) {
+			if (hasPerms(cmdPlayer, "CustomMessages.join") || cmdPlayer.hasPermission("CustomMessages.join")) {
 				config.resetColoredMessage(cmdPlayer, "Join");
 				cmdPlayer
 						.sendMessage(ChatColor.RED
@@ -188,7 +188,7 @@ public class CustomMessages extends JavaPlugin {
 			cmdPlayer = (Player) sender;
 
 			if (hasPerms(cmdPlayer, "CustomMessages.Globaljoin")
-					|| cmdPlayer.isOp()) {
+					|| cmdPlayer.hasPermission("CustomMessages.Globaljoin")) {
 				config.resetGlobalMessage("Join");
 				cmdPlayer
 						.sendMessage(ChatColor.RED
@@ -208,7 +208,7 @@ public class CustomMessages extends JavaPlugin {
 			cmdPlayer = (Player) sender;
 
 			if (hasPerms(cmdPlayer, "CustomMessages.Globalquit")
-					|| cmdPlayer.isOp()) {
+					|| cmdPlayer.hasPermission("CustomMessages.Globalquit")) {
 				config.resetGlobalMessage("Quit");
 				cmdPlayer
 						.sendMessage(ChatColor.RED
@@ -228,7 +228,7 @@ public class CustomMessages extends JavaPlugin {
 			cmdPlayer = (Player) sender;
 
 			if (hasPerms(cmdPlayer, "CustomMessages.Globaljoin")
-					|| cmdPlayer.isOp()) {
+					|| cmdPlayer.hasPermission("CustomMessages.Globaljoin")) {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.RED
 							+ "Usage is /customglobaljoin <message>");
@@ -256,7 +256,7 @@ public class CustomMessages extends JavaPlugin {
 			cmdPlayer = (Player) sender;
 
 			if (hasPerms(cmdPlayer, "CustomMessages.Globalquit")
-					|| cmdPlayer.isOp()) {
+					|| cmdPlayer.hasPermission("CustomMessages.Globalquit")) {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.RED
 							+ "Usage is /customglobalquit <message>");
@@ -287,7 +287,7 @@ public class CustomMessages extends JavaPlugin {
 				playerIsOnline = isOnline(args[0]);
 
 				if (hasPerms(cmdPlayer, "CustomMessages.joino")
-						|| cmdPlayer.isOp()) {
+						|| cmdPlayer.hasPermission("CustomMessages.joino")) {
 					for (int i = 1; i < args.length; i++) {
 						String s = args[i];
 						playerOption = playerOption + " " + s;
@@ -325,7 +325,7 @@ public class CustomMessages extends JavaPlugin {
 				playerIsOnline = isOnline(args[0]);
 
 				if (hasPerms(cmdPlayer, "CustomMessages.quito")
-						|| cmdPlayer.isOp()) {
+						|| cmdPlayer.hasPermission("CustomMessages.quito")) {
 					for (int i = 1; i < args.length; i++) {
 						String s = args[i];
 						playerOption = playerOption + " " + s;
@@ -362,7 +362,7 @@ public class CustomMessages extends JavaPlugin {
 				playerIsOnline = isOnline(args[0]);
 
 				if (hasPerms(cmdPlayer, "CustomMessages.quito")
-						|| cmdPlayer.isOp()) {
+						|| cmdPlayer.hasPermission("CustomMessages.quito")) {
 					config.resetColoredMessage(
 							getServer().getPlayer(playerIsOnline), "Quit");
 					cmdPlayer.sendMessage("You set " + playerIsOnline
@@ -392,7 +392,7 @@ public class CustomMessages extends JavaPlugin {
 				playerIsOnline = isOnline(args[0]);
 
 				if (hasPerms(cmdPlayer, "CustomMessages.joino")
-						|| cmdPlayer.isOp()) {
+						|| cmdPlayer.hasPermission("CustomMessages.joino")) {
 					config.resetColoredMessage(
 							getServer().getPlayer(playerIsOnline), "Join");
 					cmdPlayer.sendMessage("You set " + playerIsOnline

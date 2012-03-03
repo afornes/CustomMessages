@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 1.4.5
+version: 1.5.0
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 authors: [Psycowithespn]
 commands:
@@ -54,3 +54,31 @@ commands:
     checkglobalquit:
         description: Shows the server's default quit message
         usage: /<command> - Shows the servers quit message
+permissions:
+    CustomMessages.*:
+        description: Gives access to all CustomMessages Commands
+        children:
+            CustomMessages.join: true
+            CustomMessages.quit: true
+            CustomMessages.Globaljoin: true
+            CustomMessages.Globalquit: true
+            CustomMessages.joino: true
+            CustomMessages.quito: true
+    CustomMessages.join:
+        description: Allows you to set and reset your join message
+        default: op
+    CustomMessages.quit:
+        description: Allows you to set and reset your quit message
+        default: op
+    CustomMessages.Globaljoin:
+        description: Allows you to set and reset your server's join message
+        default: op
+    CustomMessages.Globalquit:
+        description: Allows you to set and reset your server's quit message
+        default: op
+    CustomMessages.joino:
+        description: Allows you to set and reset another's join message
+        default: op
+    CustomMessages.quito:
+        description: Allows you to set and reset another's quit message
+        default: op
