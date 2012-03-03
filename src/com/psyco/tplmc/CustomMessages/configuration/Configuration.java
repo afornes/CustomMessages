@@ -23,12 +23,9 @@ public class Configuration {
     public void loadConfig() {
         configFile = new File(plugin.getDataFolder(), "config.yml");
         config = YamlConfiguration.loadConfiguration(configFile);
-        config.getBoolean("Config.Use-Permissions-For-Messages", true);
-        config.getBoolean("Config.Auto-Update", true);
-        config.getString("Config.Global-Quit-Message",
-                "&e/name &eleft the game.");
-        config.getString("Config.Global-Join-Message",
-                "&e/name &ejoined the game.");
+        config.addDefault("Config.Global-Quit-Message", "&e/name &eleft the game.");
+        config.addDefault("Config.Global-Join-Message", "&e/name &ejoined the game.");
+        config.options().copyDefaults(true);
         saveConfig();
     }
 
