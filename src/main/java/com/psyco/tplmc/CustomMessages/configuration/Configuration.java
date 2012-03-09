@@ -1,6 +1,7 @@
 package com.psyco.tplmc.CustomMessages.configuration;
 
 import com.psyco.tplmc.CustomMessages.CustomMessages;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -11,17 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
-    
-    private CustomMessages plugin;
+
     private YamlConfiguration config;
     private File configFile;
 
     public Configuration(CustomMessages instance) {
-        this.plugin = instance;
+        configFile = new File(instance.getDataFolder(), "config.yml");
     }
 
     public void loadConfig() {
-        configFile = new File(plugin.getDataFolder(), "config.yml");
         config = YamlConfiguration.loadConfiguration(configFile);
         config.addDefault("Config.Global-Quit-Message", "&e/name &eleft the game.");
         config.addDefault("Config.Global-Join-Message", "&e/name &ejoined the game.");
@@ -45,13 +44,13 @@ public class Configuration {
             message = config.getString("users." + name + "." + actionLC);
             if (message != null) {
                 message =  message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replaceAll("/name", p.getDisplayName());
-                return message.replaceAll("/count", Arrays.asList(plugin.getServer().getOfflinePlayers()).size() + "");
+                return message.replaceAll("/count", Bukkit.getServer().getOfflinePlayers().length + "");
             }
         }
         message = getGlobalMessage(action);
         if (message != null) {
             message =  message.replaceAll("(&([a-f0-9]))", "\u00A7$2").replaceAll("/name", p.getDisplayName());
-            return message.replaceAll("/count", Arrays.asList(plugin.getServer().getOfflinePlayers()).size() + "");
+            return message.replaceAll("/count", Bukkit.getServer().getOfflinePlayers().length + "");
         }
         return message;
     }
@@ -86,8 +85,6 @@ public class Configuration {
     public void resetColoredMessage(Player p, String action) {
         action = action.toLowerCase();
         if (config.contains("users." + p.getName() + "." + action)) {
-
-
             config.set("users." + p.getName() + "." + action, null);
             saveConfig();
         }
