@@ -1,84 +1,37 @@
 name: CustomMessages
-version: 1.5.0
+version: 2.0
 main: com.psyco.tplmc.CustomMessages.CustomMessages
-authors: [Psycowithespn]
+authors: [psycowithespn]
 commands:
-    customquit:
-        description: Custom Quit Message
-        usage: /<command> <message> - Setting Custom Quit Message
-    colors:
-        description: Shows Color Codes
+    cm:
+        description: Custom Messages command
+        aliases: [custommessages]
         usage: /<command>
-    customjoin:
-        description: Custom Join Message
-        usage: /<command> <message> - Setting Custom Join Message
-    resetjoin:
-        description: Resets Custom Join Message
-        usage: /<command> - Resetting Custom Join Message
-    resetquit:
-        description: Resets Custom Quit Message
-        usage: /<command> - Resetting Custom Quit Message
-    customglobalquit:
-        description: Global Quit Message
-        usage: /<command> <message> - Setting Global Quit Message
-    customglobaljoin:
-        description: Global Quit Message
-        usage: /<command> <message> - Setting Global Join Message
-    resetglobaljoin:
-        description: Resets Global Join Message
-        usage: /<command> - Resets Global Join Message
-    resetglobalquit:
-        description: Resets Global Quit Message
-        usage: /<command> - Resets Global Quit Message    
-    customquito:
-        description: Custom Quit Message For Others
-        usage: /<command> <message> - Setting Custom Quit Message
-    customjoino:
-        description: Custom Join Message
-        usage: /<command> <message> - Setting Custom Join Message For Others
-    resetjoino:
-        description: Resets Custom Join Message For Others
-        usage: /<command> - Resettting Custom Join Message For Others
-    resetquito:
-        description: Resets Custom Quit Message For Others
-        usage: /<command> - Resetting Custom Quit Message For Others
-    checkjoin:
-        description: Shows a current join message of you or another
-        usage: /<command> [player] - Shows a player's join message
-    checkquit:
-        description: Shows a current quit message of you or another
-        usage: /<command> [player] - Shows a player's quit message
-    checkglobaljoin:
-        description: Shows the server's default join message
-        usage: /<command> - Shows the servers join message
-    checkglobalquit:
-        description: Shows the server's default quit message
-        usage: /<command> - Shows the servers quit message
 permissions:
     CustomMessages.*:
         description: Gives access to all CustomMessages Commands
         children:
             CustomMessages.join: true
             CustomMessages.quit: true
-            CustomMessages.Globaljoin: true
-            CustomMessages.Globalquit: true
-            CustomMessages.joino: true
-            CustomMessages.quito: true
+            CustomMessages.globaljoin: true
+            CustomMessages.globalquit: true
+            CustomMessages.join.other: true
+            CustomMessages.quit.other: true
     CustomMessages.join:
         description: Allows you to set and reset your join message
         default: op
     CustomMessages.quit:
         description: Allows you to set and reset your quit message
         default: op
-    CustomMessages.Globaljoin:
+    CustomMessages.globaljoin:
         description: Allows you to set and reset your server's join message
         default: op
-    CustomMessages.Globalquit:
+    CustomMessages.globalquit:
         description: Allows you to set and reset your server's quit message
         default: op
-    CustomMessages.joino:
+    CustomMessages.join.other:
         description: Allows you to set and reset another's join message
         default: op
-    CustomMessages.quito:
+    CustomMessages.quit.other:
         description: Allows you to set and reset another's quit message
         default: op

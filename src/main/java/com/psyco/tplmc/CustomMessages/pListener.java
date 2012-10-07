@@ -7,26 +7,19 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class pListener implements Listener {
-	public CustomMessages plugin;
-
-	public pListener(CustomMessages plugin) {
-		this.plugin = plugin;
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		if(event.getQuitMessage() != null){
-		event.setQuitMessage(plugin.config.getColoredMessage(event.getPlayer(), "Quit"));
-		}
-
-	}
 
     @EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerJoin(PlayerJoinEvent event) {
-		if(event.getJoinMessage() != null){
-		    event.setJoinMessage(plugin.config.getColoredMessage(event.getPlayer(), "Join"));
-		}
-	
-	}
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        if (event.getQuitMessage() != null) {
+            event.setQuitMessage(CustomMessages.p.config.getColoredMessage(event.getPlayer(), MessageTypes.QUIT));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        if (event.getJoinMessage() != null) {
+            event.setJoinMessage(CustomMessages.p.config.getColoredMessage(event.getPlayer(), MessageTypes.JOIN));
+        }
+    }
 
 }
