@@ -17,6 +17,7 @@ permissions:
             CustomMessages.globalquit: true
             CustomMessages.join.other: true
             CustomMessages.quit.other: true
+            CustomMessages.noprefix: true
     CustomMessages.join:
         description: Allows you to set and reset your join message
         default: op
@@ -34,4 +35,7 @@ permissions:
         default: op
     CustomMessages.quit.other:
         description: Allows you to set and reset another's quit message
+        default: op
+    CustomMessages.noprefix:
+        description: Does not show the message prefix
         default: op

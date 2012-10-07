@@ -341,7 +341,6 @@ public class CmCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.GREEN + "/name" + ChatColor.GRAY + " The real name of the player");
             sender.sendMessage(ChatColor.GREEN + "/nname" + ChatColor.GRAY + " The nickname of the player");
             sender.sendMessage(ChatColor.GREEN + "/count" + ChatColor.GRAY + " The number of players that have been on the server");
-            sender.sendMessage(ChatColor.GREEN + "" + ChatColor.GRAY + " ");
             return true;
         }
         showAllHelp(sender);
