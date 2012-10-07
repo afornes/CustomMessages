@@ -18,6 +18,7 @@ permissions:
             CustomMessages.join.other: true
             CustomMessages.quit.other: true
             CustomMessages.noprefix: true
+            CustomMessages.reload: true
     CustomMessages.join:
         description: Allows you to set and reset your join message
         default: op
@@ -38,4 +39,7 @@ permissions:
         default: op
     CustomMessages.noprefix:
         description: Does not show the message prefix
+        default: op
+    CustomMessages.reload:
+        description: Allows you to reload
         default: op
