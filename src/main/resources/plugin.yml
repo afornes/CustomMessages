@@ -1,7 +1,9 @@
 name: CustomMessages
-version: 2.0
+version: 2.1
 main: com.psyco.tplmc.CustomMessages.CustomMessages
+description: Changes server messages
 authors: [psycowithespn]
+soft-depend: [Vault]
 commands:
     cm:
         description: Custom Messages command

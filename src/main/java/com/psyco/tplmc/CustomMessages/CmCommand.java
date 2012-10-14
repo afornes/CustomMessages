@@ -27,7 +27,7 @@ public class CmCommand implements CommandExecutor {
             fromPlayer = true;
         }
         if (args.length == 0) {
-            showAllHelp(sender);
+            showAllHelp(sender, s);
             return true;
         }
         if (args[0].equalsIgnoreCase("reload")) {
@@ -51,7 +51,7 @@ public class CmCommand implements CommandExecutor {
                         sender.sendMessage(NO_PERMISSION);
                     }
                 } else {
-                    sender.sendMessage(ChatColor.GREEN + "/cm join <player> [message]");
+                    sender.sendMessage(ChatColor.GREEN + "/" + s + " join <player> [message]");
                 }
             } else if (args.length == 2) {
                 Player target = Bukkit.getPlayer(args[1]);
@@ -133,7 +133,7 @@ public class CmCommand implements CommandExecutor {
                         sender.sendMessage(NO_PERMISSION);
                     }
                 } else {
-                    sender.sendMessage(ChatColor.GREEN + "/cm quit <player> [message]");
+                    sender.sendMessage(ChatColor.GREEN + "/"+ s + " quit <player> [message]");
                 }
             } else if (args.length == 2) {
                 Player target = Bukkit.getPlayer(args[1]);
@@ -216,7 +216,7 @@ public class CmCommand implements CommandExecutor {
                         sender.sendMessage(NO_PERMISSION);
                     }
                 } else {
-                    sender.sendMessage(ChatColor.GREEN + "/cm resetjoin [player]");
+                    sender.sendMessage(ChatColor.GREEN + "/" + s + " resetjoin [player]");
                 }
             } else if(args.length >= 2){
                 Player target = Bukkit.getPlayer(args[1]);
@@ -251,7 +251,7 @@ public class CmCommand implements CommandExecutor {
                         sender.sendMessage(NO_PERMISSION);
                     }
                 } else {
-                    sender.sendMessage(ChatColor.GREEN + "/cm resetquit [player]");
+                    sender.sendMessage(ChatColor.GREEN + "/" + s + " resetquit [player]");
                 }
             } else if(args.length >= 2){
                 Player target = Bukkit.getPlayer(args[1]);
@@ -341,62 +341,66 @@ public class CmCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.GREEN + "/name" + ChatColor.GRAY + " The real name of the player");
             sender.sendMessage(ChatColor.GREEN + "/nname" + ChatColor.GRAY + " The nickname of the player");
             sender.sendMessage(ChatColor.GREEN + "/count" + ChatColor.GRAY + " The number of players that have been on the server");
+            sender.sendMessage(ChatColor.GREEN + "/prefix" + ChatColor.GRAY + " The prefix of the player");
+            sender.sendMessage(ChatColor.GREEN + "/suffix" + ChatColor.GRAY + " The suffix of the player");
+            sender.sendMessage(ChatColor.GREEN + "/group" + ChatColor.GRAY + " The group of the player");
+            sender.sendMessage(ChatColor.GREEN + "/world" + ChatColor.GRAY + " The world the player is in");
             return true;
         }
-        showAllHelp(sender);
+        showAllHelp(sender, s);
         return true;
     }
 
-    public void showAllHelp(CommandSender sender) {
+    public void showAllHelp(CommandSender sender, String label) {
         sender.sendMessage(ChatColor.GREEN + "Custom Messages - v " + CustomMessages.p.getDescription().getVersion() + " by psycowithespn");
-        showJoinHelp(sender);
-        showQuitHelp(sender);
+        showJoinHelp(sender, label);
+        showQuitHelp(sender, label);
         if (sender.hasPermission("CustomMessages.globaljoin")) {
-            sender.sendMessage(ChatColor.GREEN + "/cm globaljoin [message]" + ChatColor.GRAY + " Gets or sets the default global join message");
-            sender.sendMessage(ChatColor.GREEN + "/cm resetglobaljoin" + ChatColor.GRAY + " Resets the global join message");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " globaljoin [message]" + ChatColor.GRAY + " Gets or sets the default global join message");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " resetglobaljoin" + ChatColor.GRAY + " Resets the global join message");
         }
         if (sender.hasPermission("CustomMessages.globalquit")) {
-            sender.sendMessage(ChatColor.GREEN + "/cm globalquit [message]" + ChatColor.GRAY + " Gets or sets the default global quit message");
-            sender.sendMessage(ChatColor.GREEN + "/cm resetglobalquit" + ChatColor.GRAY + " Resets the global quit message");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " globalquit [message]" + ChatColor.GRAY + " Gets or sets the default global quit message");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " resetglobalquit" + ChatColor.GRAY + " Resets the global quit message");
         }
         if (sender.hasPermission("CustomMessages.reload")) {
-            sender.sendMessage(ChatColor.GREEN + "/cm reload" + ChatColor.GRAY + " Reloads config from file");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " reload" + ChatColor.GRAY + " Reloads config from file");
         }
-        sender.sendMessage(ChatColor.GREEN + "/cm colors" + ChatColor.GRAY + " Shows all of the color codes");
-        sender.sendMessage(ChatColor.GREEN + "/cm variables" + ChatColor.GRAY + " Shows all of the message variables");
+        sender.sendMessage(ChatColor.GREEN + "/" + label + " colors" + ChatColor.GRAY + " Shows all of the color codes");
+        sender.sendMessage(ChatColor.GREEN + "/" + label + " variables" + ChatColor.GRAY + " Shows all of the message variables");
     }
 
-    public void showJoinHelp(CommandSender sender) {
+    public void showJoinHelp(CommandSender sender, String label) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.GREEN + "/cm join [player] [message]" + ChatColor.GRAY + " Gets or sets the join message of an online player");
-            sender.sendMessage(ChatColor.GREEN + "/cm resetjoin [player]" + ChatColor.GRAY + " Resets the join message of an online player");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " join [player] [message]" + ChatColor.GRAY + " Gets or sets the join message of an online player");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " resetjoin [player]" + ChatColor.GRAY + " Resets the join message of an online player");
             return;
         }
         if (sender.hasPermission("CustomMessages.join")) {
             if (sender.hasPermission("CustomMessages.join.other")) {
-                sender.sendMessage(ChatColor.GREEN + "/cm join [message|player] [message]" + ChatColor.GRAY + " Gets or sets the join message of you or another");
-                sender.sendMessage(ChatColor.GREEN + "/cm resetjoin [player]" + ChatColor.GRAY + " Resets the join message of you or another");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " join [message|player] [message]" + ChatColor.GRAY + " Gets or sets the join message of you or another");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " resetjoin [player]" + ChatColor.GRAY + " Resets the join message of you or another");
             } else {
-                sender.sendMessage(ChatColor.GREEN + "/cm join [message]" + ChatColor.GRAY + " Gets or sets your join message");
-                sender.sendMessage(ChatColor.GREEN + "/cm resetjoin" + ChatColor.GRAY + " Resets your join message");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " join [message]" + ChatColor.GRAY + " Gets or sets your join message");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " resetjoin" + ChatColor.GRAY + " Resets your join message");
             }
         }
     }
 
-    public void showQuitHelp(CommandSender sender) {
+    public void showQuitHelp(CommandSender sender, String label) {
         if(!(sender instanceof Player)){
-            sender.sendMessage(ChatColor.GREEN + "/cm quit [player] [message]" + ChatColor.GRAY + " Gets or sets the quit message of an online player");
-            sender.sendMessage(ChatColor.GREEN + "/cm resetquit [player]" + ChatColor.GRAY + " Resets the quit message of an online player");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " quit [player] [message]" + ChatColor.GRAY + " Gets or sets the quit message of an online player");
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " resetquit [player]" + ChatColor.GRAY + " Resets the quit message of an online player");
             return;
         }
         if (sender.hasPermission("CustomMessages.quit")) {
             if (sender.hasPermission("CustomMessages.quit.other")) {
-                sender.sendMessage(ChatColor.GREEN + "/cm quit [message|player] [message]" + ChatColor.GRAY + " Gets or sets the quit message of you or another");
-                sender.sendMessage(ChatColor.GREEN + "/cm resetquit [player]" + ChatColor.GRAY + " Resets the quit message of you or another");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " quit [message|player] [message]" + ChatColor.GRAY + " Gets or sets the quit message of you or another");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " resetquit [player]" + ChatColor.GRAY + " Resets the quit message of you or another");
 
             } else {
-                sender.sendMessage(ChatColor.GREEN + "/cm quit [message]" + ChatColor.GRAY + " Gets or sets your quit message");
-                sender.sendMessage(ChatColor.GREEN + "/cm resetquit" + ChatColor.GRAY + " Resets your quit message");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " quit [message]" + ChatColor.GRAY + " Gets or sets your quit message");
+                sender.sendMessage(ChatColor.GREEN + "/" + label + " resetquit" + ChatColor.GRAY + " Resets your quit message");
             }
         }
     }
