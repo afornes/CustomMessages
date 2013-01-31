@@ -6,13 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Patrick
- * Date: 10/14/12
- * Time: 12:29 AM
- * To change this template use File | Settings | File Templates.
- */
 public class VaultCompat {
 
     public Permission perm;
@@ -57,20 +50,30 @@ public class VaultCompat {
     }
 
     public String getPrefix(Player p){
-        if(chat == null)
+        if(!isChatHooked)
             return "";
         return chat.getPlayerPrefix(p);
     }
 
     public String getSuffix(Player p){
-        if(chat == null)
+        if(!isChatHooked)
             return "";
         return chat.getPlayerSuffix(p);
     }
 
     public String getGroup(Player p){
-        if(perm == null)
+        if(!isPermHooked)
             return "";
-        return perm.getPrimaryGroup(p);
+        return perm.getPrimaryGroup(p).toLowerCase();
+    }
+
+    public boolean isGroup(String group){
+        if(!isPermHooked)
+            return false;
+        for(String str : perm.getGroups()){
+            if(str.equalsIgnoreCase(group))
+                return true;
+        }
+        return false;
     }
 }

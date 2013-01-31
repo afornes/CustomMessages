@@ -1,14 +1,16 @@
 package com.psyco.tplmc.CustomMessages;
 
+import com.psyco.tplmc.CustomMessages.commands.CommandManager;
 import com.psyco.tplmc.CustomMessages.configuration.Configuration;
+import com.psyco.tplmc.CustomMessages.configuration.MessageVariable;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CustomMessages extends JavaPlugin {
 
-    public Configuration config;
     public static CustomMessages p;
-    public VaultCompat vault;
+    private Configuration config;
+    private VaultCompat vault;
 
     public CustomMessages(){
         super();
@@ -20,24 +22,26 @@ public class CustomMessages extends JavaPlugin {
         p = null;
         vault.unhookVaultChat();
         vault.unhookVaultPerm();
+        CommandManager.getInstance().releaseMemory();
     }
 
     @Override
     public void onEnable() {
         config = new Configuration(this);
         config.loadConfig();
-        pListener playerL = new pListener();
+        PlayerListener playerL = new PlayerListener();
         ServerListener server = new ServerListener();
         getServer().getPluginManager().registerEvents(playerL, this);
         getServer().getPluginManager().registerEvents(server, this);
-        getCommand("cm").setExecutor(new CmCommand());
+        getCommand("cm").setExecutor(CommandManager.getInstance());
+        CommandManager.getInstance().initCommands();
         vault = new VaultCompat();
         checkVault();
     }
 
     public void checkVault() {
-        Plugin p = getServer().getPluginManager().getPlugin("Vault");
-        if(p != null){
+        Plugin pl = getServer().getPluginManager().getPlugin("Vault");
+        if(pl != null){
             getLogger().info("Vault found, hooking into it");
             if(vault.hookVaultChat()){
                 getLogger().info("Hooked into Vault chat");
@@ -51,6 +55,18 @@ public class CustomMessages extends JavaPlugin {
             }
             return;
         }
-        getLogger().info("Vault not found, prefixes, suffixes, and groups will show up blank");
+        getLogger().info("Vault not found. Prefixes, Suffixes, and Groups will show up blank");
+    }
+
+    public static Configuration getConfiguration(){
+        return p.config;
+    }
+
+    public static VaultCompat getVaultCompat(){
+        return p.vault;
+    }
+
+    public boolean registerVariable(String variable, MessageVariable messageVariable){
+        return config.registerVariable(variable, messageVariable);
     }
 }

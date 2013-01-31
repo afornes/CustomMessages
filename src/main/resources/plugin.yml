@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 2.1
+version: 2.2-BETA-1
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 description: Changes server messages
 authors: [psycowithespn]
@@ -15,10 +15,13 @@ permissions:
         children:
             CustomMessages.join: true
             CustomMessages.quit: true
+            CustomMessages.firstjoin: true
             CustomMessages.globaljoin: true
             CustomMessages.globalquit: true
             CustomMessages.join.other: true
             CustomMessages.quit.other: true
+            CustomMessages.join.group: true
+            CustomMessages.quit.group: true
             CustomMessages.noprefix: true
             CustomMessages.reload: true
     CustomMessages.join:
@@ -26,6 +29,9 @@ permissions:
         default: op
     CustomMessages.quit:
         description: Allows you to set and reset your quit message
+        default: op
+    CustomMessages.firstjoin:
+        description: Allows you to set and reset the server's first join message
         default: op
     CustomMessages.globaljoin:
         description: Allows you to set and reset your server's join message
@@ -38,6 +44,12 @@ permissions:
         default: op
     CustomMessages.quit.other:
         description: Allows you to set and reset another's quit message
+        default: op
+    CustomMessages.join.group:
+        description: Allows setting and resetting of a group's join message
+        default: op
+    CustomMessages.quit.group:
+        description: Allows setting and resetting of a group's quit message
         default: op
     CustomMessages.noprefix:
         description: Does not show the message prefix

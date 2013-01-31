@@ -1,12 +1,7 @@
 package com.psyco.tplmc.CustomMessages;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Patrick
- * Date: 10/6/12
- * Time: 4:28 PM
- * To change this template use File | Settings | File Templates.
- */
+import org.bukkit.ChatColor;
+
 public class Util {
 
     public static String getSpacedString(String[] args, int start, int end){
@@ -21,5 +16,15 @@ public class Util {
         return sb.toString().trim();
     }
 
+    public static String[] arrayPart(String[] args, int start, int length){
+        String[] newArgs = new String[length - start];
+        if(newArgs.length == 0)
+            return newArgs;
+        System.arraycopy(args, start, newArgs, start - start, length - start);
+        return newArgs;
+    }
 
+    public static String translateColor(String str) {
+        return ChatColor.translateAlternateColorCodes('&', str);
+    }
 }
