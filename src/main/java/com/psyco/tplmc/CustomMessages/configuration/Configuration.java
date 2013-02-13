@@ -3,14 +3,14 @@ package com.psyco.tplmc.CustomMessages.configuration;
 import com.psyco.tplmc.CustomMessages.CustomMessages;
 import com.psyco.tplmc.CustomMessages.MessageTypes;
 import com.psyco.tplmc.CustomMessages.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import com.psyco.tplmc.CustomMessages.configuration.defaultvariables.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Configuration {
 
@@ -18,9 +18,19 @@ public class Configuration {
     private final File configFile;
     private static final String colorString = "&0&&00&1&&11&2&&22&3&&33&4&&44&5&&55&6&&66&7&&77&8&&88&9&&99&a&&aa&b&&bb&c&&cc&d&&dd&e&&ee&f&&ff".replaceAll("(&([a-f0-9]))", "\u00A7$2");
     private final HashMap<String, MessageVariable> variables = new HashMap<String, MessageVariable>();
+    private final HashMap<String, MessageVariable> defaultVariables = new HashMap<String, MessageVariable>();
 
     public Configuration(CustomMessages instance) {
         configFile = new File(instance.getDataFolder(), "config.yml");
+        defaultVariables.put("/name", new VariableName());
+        defaultVariables.put("/nname", new VariableNickName());
+        defaultVariables.put("/count", new VariableCount());
+        defaultVariables.put("/online", new VariableOnline());
+        defaultVariables.put("/maxonline", new VariableMaxOnline());
+        defaultVariables.put("/prefix", new VariablePrefix());
+        defaultVariables.put("/suffix", new VariableSuffix());
+        defaultVariables.put("/group", new VariableGroup());
+        defaultVariables.put("/world", new VariableWorld());
     }
 
     //Basic Configuration loading and saving
@@ -47,6 +57,8 @@ public class Configuration {
             config.set("Config.Global-Join-Message", null);
         }
         config.addDefault("config.must-have-permissions-to-show-current-messages", false);
+        config.addDefault("config.send-messages-to-console", true);
+        config.addDefault("config.debug", false);
         config.addDefault("config.global-join-message", defJoin);
         config.addDefault("config.global-join-message-enabled", true);
         config.addDefault("config.global-quit-message", defQuit);
@@ -84,7 +96,7 @@ public class Configuration {
             message = config.getString("users." + name + "." + action.getConfig());
             if (!p.hasPermission("CustomMessages.noprefix"))
                 message = getMessagePrefix() + message;
-            return Util.translateColor(replaceVars(message, p));
+            return Util.translateColor(replaceVars(message, p, action));
         }
         String group = CustomMessages.getVaultCompat().getGroup(p);
         if (group != null) {
@@ -92,13 +104,13 @@ public class Configuration {
                 return null;
             if (config.contains("groups." + group.toLowerCase() + "." + action.getConfig())) {
                 message = config.getString("groups." + group.toLowerCase() + "." + action.getConfig());
-                return Util.translateColor(replaceVars(message, p));
+                return Util.translateColor(replaceVars(message, p, action));
             }
         }
         message = getGlobalMessage(action);
         if (!isGlobalMessageEnabled(action))
             return null;
-        return Util.translateColor(replaceVars(message, p));
+        return Util.translateColor(replaceVars(message, p, action));
     }
 
     //Player message stuff
@@ -155,6 +167,7 @@ public class Configuration {
     }
 
     //It is impossible to not have a global message set, but this method is for consistency
+    @SuppressWarnings({"SameReturnValue", "UnusedParameters"})
     public boolean isGlobalMessageSet(MessageTypes action) {
         return true;
     }
@@ -215,6 +228,14 @@ public class Configuration {
         return config.getBoolean("config.must-have-permissions-to-show-current-messages");
     }
 
+    public boolean logToConsole() {
+        return config.getBoolean("config.send-messages-to-console");
+    }
+
+    public boolean isDebugging() {
+        return config.getBoolean("config.debug");
+    }
+
     public String getColorsString() {
         return colorString;
     }
@@ -223,25 +244,30 @@ public class Configuration {
         return config.getString("config.message-prefix");
     }
 
-    public String replaceVars(String str, Player p) {
-        for (MessageVariable var : variables.values()) {
-            str = var.handleMessage(str, p);
+    public String replaceVars(String str, Player p, MessageTypes type) {
+        for (Map.Entry<String, MessageVariable> entry : defaultVariables.entrySet()) {
+            str = str.replaceAll(entry.getKey(), entry.getValue().getReplacement(p, type));
         }
-        str = str.replaceAll("/name", p.getName());
-        str = str.replaceAll("/nname", p.getDisplayName());
-        str = str.replaceAll("/count", String.valueOf(Bukkit.getOfflinePlayers().length));
-        str = str.replaceAll("/online", String.valueOf(Bukkit.getOnlinePlayers().length));
-        str = str.replaceAll("/maxonline", String.valueOf(Bukkit.getMaxPlayers()));
-        str = str.replaceAll("/prefix", CustomMessages.getVaultCompat().getPrefix(p) != null ? CustomMessages.getVaultCompat().getPrefix(p) : "");
-        str = str.replaceAll("/suffix", CustomMessages.getVaultCompat().getSuffix(p) != null ? CustomMessages.getVaultCompat().getSuffix(p) : "");
-        str = str.replaceAll("/group", CustomMessages.getVaultCompat().getGroup(p) != null ? CustomMessages.getVaultCompat().getGroup(p) : "");
-        str = str.replaceAll("/world", p.getWorld().getName());
+        for (Map.Entry<String, MessageVariable> entry : variables.entrySet()) {
+            try {
+                str = str.replaceAll(entry.getKey(), entry.getValue().getReplacement(p, type));
+            } catch (Exception ex) {
+                CustomMessages.p.getLogger().severe("Encountered exception with the variable " + entry.getKey() + ": " + ex.toString() + ": " + ex.getMessage());
+                if (isDebugging()) {
+                    ex.printStackTrace();
+                }
+                str = str.replaceAll(entry.getKey(), "");
+            }
+        }
         return str;
     }
 
     public boolean registerVariable(String variable, MessageVariable messageVariable) {
         if (!variables.containsKey(variable)) {
             variables.put(variable, messageVariable);
+            if (isDebugging()) {
+                CustomMessages.p.getLogger().info("Variable " + variable + " registered by " + messageVariable.getClass());
+            }
             return true;
         }
         return false;
@@ -250,6 +276,9 @@ public class Configuration {
     public boolean unregisterVariable(String variable) {
         if (variables.containsKey(variable)) {
             variables.remove(variable);
+            if (isDebugging()) {
+                CustomMessages.p.getLogger().info("Variable " + variable + " unregistered");
+            }
             return true;
         }
         return false;

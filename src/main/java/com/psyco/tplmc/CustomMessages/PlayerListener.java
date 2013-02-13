@@ -12,17 +12,29 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (event.getQuitMessage() != null) {
-            event.setQuitMessage(CustomMessages.getConfiguration().getColoredMessage(event.getPlayer(), MessageTypes.QUIT));
+            String message = CustomMessages.getConfiguration().getColoredMessage(event.getPlayer(), MessageTypes.QUIT);
+            event.setQuitMessage(message);
+            if (CustomMessages.getConfiguration().logToConsole()) {
+                Bukkit.getLogger().info(message);
+            }
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         if (event.getJoinMessage() != null) {
-            event.setJoinMessage(CustomMessages.getConfiguration().getColoredMessage(event.getPlayer(), MessageTypes.JOIN));
+            String message = CustomMessages.getConfiguration().getColoredMessage(event.getPlayer(), MessageTypes.JOIN);
+            event.setJoinMessage(message);
+            if (CustomMessages.getConfiguration().logToConsole()) {
+                Bukkit.getLogger().info(message);
+            }
         }
         if(!event.getPlayer().hasPlayedBefore() && CustomMessages.getConfiguration().isGlobalMessageEnabled(MessageTypes.FIRSTJOIN)){
-            Bukkit.broadcastMessage(Util.translateColor(CustomMessages.getConfiguration().replaceVars(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN), event.getPlayer())));
+            String message = Util.translateColor(CustomMessages.getConfiguration().replaceVars(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN), event.getPlayer(), MessageTypes.FIRSTJOIN));
+            Bukkit.broadcastMessage(message);
+            if (CustomMessages.getConfiguration().logToConsole()) {
+                Bukkit.getLogger().info(message);
+            }
         }
     }
 

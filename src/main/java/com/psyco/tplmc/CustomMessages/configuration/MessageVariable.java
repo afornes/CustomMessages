@@ -9,7 +9,7 @@ public abstract class MessageVariable {
     private String variable;
     private boolean isRegistered = false;
 
-    public abstract String handleMessage(String message, Player player);
+    public abstract String getReplacement(Player player, MessageTypes type);
 
     public final void register(String variable) {
         if (!isRegistered) {

@@ -2,7 +2,6 @@ package com.psyco.tplmc.CustomMessages;
 
 import com.psyco.tplmc.CustomMessages.commands.CommandManager;
 import com.psyco.tplmc.CustomMessages.configuration.Configuration;
-import com.psyco.tplmc.CustomMessages.configuration.MessageVariable;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,7 +11,7 @@ public class CustomMessages extends JavaPlugin {
     private Configuration config;
     private VaultCompat vault;
 
-    public CustomMessages(){
+    public CustomMessages() {
         super();
         p = this;
     }
@@ -41,14 +40,14 @@ public class CustomMessages extends JavaPlugin {
 
     public void checkVault() {
         Plugin pl = getServer().getPluginManager().getPlugin("Vault");
-        if(pl != null){
+        if (pl != null) {
             getLogger().info("Vault found, hooking into it");
-            if(vault.hookVaultChat()){
+            if (vault.hookVaultChat()) {
                 getLogger().info("Hooked into Vault chat");
             } else {
                 getLogger().info("Failed to hook into Vault chat");
             }
-            if(vault.hookVaultPerm()){
+            if (vault.hookVaultPerm()) {
                 getLogger().info("Hooked into Vault permissions");
             } else {
                 getLogger().info("Failed to hook into Vault permissions");
@@ -58,15 +57,11 @@ public class CustomMessages extends JavaPlugin {
         getLogger().info("Vault not found. Prefixes, Suffixes, and Groups will show up blank");
     }
 
-    public static Configuration getConfiguration(){
+    public static Configuration getConfiguration() {
         return p.config;
     }
 
-    public static VaultCompat getVaultCompat(){
+    public static VaultCompat getVaultCompat() {
         return p.vault;
-    }
-
-    public boolean registerVariable(String variable, MessageVariable messageVariable){
-        return config.registerVariable(variable, messageVariable);
     }
 }
