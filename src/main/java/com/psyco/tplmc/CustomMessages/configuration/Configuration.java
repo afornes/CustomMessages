@@ -65,6 +65,8 @@ public class Configuration {
         config.addDefault("config.global-quit-message-enabled", true);
         config.addDefault("config.global-firstjoin-message", "&dWelcome /name to the server!");
         config.addDefault("config.global-firstjoin-message-enabled", false);
+        config.addDefault("config.global-kick-message", "&e/name &ewas kicked from the server.");
+        config.addDefault("config.global-kick-message-enabled", false);
         config.addDefault("config.message-prefix", "[&aCM&f] ");
         config.addDefault("users.example.join", "&4Example joined the server");
         config.addDefault("users.example.join-enabled", true);

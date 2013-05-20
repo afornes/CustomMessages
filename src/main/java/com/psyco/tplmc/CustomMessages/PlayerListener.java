@@ -5,7 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import javax.swing.text.DefaultEditorKit;
 
 public class PlayerListener implements Listener {
 
@@ -32,6 +35,17 @@ public class PlayerListener implements Listener {
         if(!event.getPlayer().hasPlayedBefore() && CustomMessages.getConfiguration().isGlobalMessageEnabled(MessageTypes.FIRSTJOIN)){
             String message = Util.translateColor(CustomMessages.getConfiguration().replaceVars(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN), event.getPlayer(), MessageTypes.FIRSTJOIN));
             Bukkit.broadcastMessage(message);
+            if (CustomMessages.getConfiguration().logToConsole()) {
+                Bukkit.getLogger().info(message);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerKick(PlayerKickEvent event) {
+        if (event.getLeaveMessage() != null && CustomMessages.getConfiguration().isGlobalMessageEnabled(MessageTypes.KICK)) {
+            String message = Util.translateColor(CustomMessages.getConfiguration().replaceVars(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.KICK), event.getPlayer(), MessageTypes.KICK));
+            event.setLeaveMessage(message);
             if (CustomMessages.getConfiguration().logToConsole()) {
                 Bukkit.getLogger().info(message);
             }

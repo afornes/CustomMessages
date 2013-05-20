@@ -30,6 +30,7 @@ public class CommandManager implements CommandExecutor {
             Class.forName(pack + "CmReloadCommand");
             Class.forName(pack + "CmColorsCommand");
             Class.forName(pack + "CmVariablesCommand");
+            Class.forName(pack + "CmKickCommand");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

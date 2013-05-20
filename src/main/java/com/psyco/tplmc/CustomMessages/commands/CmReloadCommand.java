@@ -17,14 +17,7 @@ public class CmReloadCommand extends CommandBase {
 
     @Override
     public void onPlayerCommand(Player player, String label, String[] args) {
-        if (player.hasPermission("CustomMessages.reload")) {
-            if (CustomMessages.getConfiguration().loadConfig())
-                player.sendMessage(ChatColor.GREEN + "Configuration reloaded successfully");
-            else
-                player.sendMessage(ChatColor.RED + "Error reloading configuration. See console");
-        } else {
-            player.sendMessage(NO_PERMISSION);
-        }
+        onCommandSenderCommand(player, label, args);
     }
 
     @Override

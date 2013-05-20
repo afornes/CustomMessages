@@ -39,7 +39,7 @@ public class CmFirstjoinCommand extends CommandBase {
                     sender.sendMessage(ChatColor.RED + "First join message was already enabled");
                 }
             } else if (args[0].equalsIgnoreCase("disable")) {
-                if (CustomMessages.getConfiguration().setGlobalMessageEnabled(MessageTypes.FIRSTJOIN, true)) {
+                if (CustomMessages.getConfiguration().setGlobalMessageEnabled(MessageTypes.FIRSTJOIN, false)) {
                     sender.sendMessage(ChatColor.GREEN + "First join message is now disabled");
                 } else {
                     sender.sendMessage(ChatColor.RED + "First join message was already disabled");

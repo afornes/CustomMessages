@@ -20,6 +20,7 @@ public class CmQuitCommand extends CommandBase {
 
     @Override
     public void onPlayerCommand(Player player, String label, String[] args) {
+        Player target = Bukkit.getPlayer(args[0]);
         if (args.length == 0) {
             if (!CustomMessages.getConfiguration().permsRequired() || player.hasPermission("CustomMessages.quit")) {
                 player.sendMessage(ChatColor.GREEN + "Current quit message:");
@@ -55,7 +56,6 @@ public class CmQuitCommand extends CommandBase {
                     player.sendMessage(NO_PERMISSION);
                 }
             } else {
-                Player target = Bukkit.getPlayer(args[0]);
                 if (target != null) {
                     if (player.hasPermission("CustomMessages.quit.other")) {
                         player.sendMessage(ChatColor.GREEN + target.getName() + "'s current quit message:");
@@ -80,7 +80,6 @@ public class CmQuitCommand extends CommandBase {
                 }
             }
         } else {
-            Player target = Bukkit.getPlayer(args[0]);
             if (target != null) {
                 if (target.getName().equals(player.getName())) {
                     if (player.hasPermission("CustomMessages.quit")) {
@@ -109,6 +108,7 @@ public class CmQuitCommand extends CommandBase {
                     } else {
                         player.sendMessage(NO_PERMISSION);
                     }
+
                 } else {
                     if (player.hasPermission("CustomMessages.quit.other")) {
                         if (args[1].equalsIgnoreCase("enable")) {

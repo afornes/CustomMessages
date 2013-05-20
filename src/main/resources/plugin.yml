@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 2.2
+version: 2.3-BETA
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 description: Changes server messages
 authors: [psycowithespn]
@@ -32,6 +32,9 @@ permissions:
         default: op
     CustomMessages.firstjoin:
         description: Allows you to set and reset the server's first join message
+        default: op
+    CustomMessages.kick:
+        description: Allows you to set and reset the server's kick message
         default: op
     CustomMessages.globaljoin:
         description: Allows you to set and reset your server's join message
