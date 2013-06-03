@@ -40,6 +40,9 @@ public class CmHelpCommand extends CommandBase {
         if (sender.hasPermission("CustomMessages.quit.group")) {
             sender.sendMessage(ChatColor.GREEN + "/" + label + " quit <group> [message|reset|enable|disable]" + ChatColor.GRAY + " Views or modifies a group's quit message");
         }
+        if (sender.hasPermission("CustomMessages.kick")) {
+            sender.sendMessage(ChatColor.GREEN + "/" + label + " kick [message|reset|enable|disable]" + ChatColor.GRAY + " Views or modifies the global kick message");
+        }
         if (sender.hasPermission("CustomMessages.globaljoin")) {
             sender.sendMessage(ChatColor.GREEN + "/" + label + " globaljoin [message|reset|enable|disable]" + ChatColor.GRAY + " Views or modifies the server's global join message");
         } else if (!CustomMessages.getConfiguration().permsRequired()){
