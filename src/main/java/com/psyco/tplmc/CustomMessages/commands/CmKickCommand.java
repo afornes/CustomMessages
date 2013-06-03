@@ -27,7 +27,7 @@ public class CmKickCommand extends CommandBase {
         if(args.length == 0){
             if(!CustomMessages.getConfiguration().permsRequired() || sender.hasPermission("CustomMessages.kick")){
                 sender.sendMessage(ChatColor.GREEN + "Current kick message:");
-                sender.sendMessage(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.KICK) + getGlobalDisabledText(MessageTypes.KICK));
+                sender.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.KICK) + getGlobalDisabledText(MessageTypes.KICK)));
             } else {
                 sender.sendMessage(NO_PERMISSION);
             }
@@ -47,7 +47,7 @@ public class CmKickCommand extends CommandBase {
             } else if (args[0].equalsIgnoreCase("reset")) {
                 CustomMessages.getConfiguration().resetGlobalMessage(MessageTypes.KICK);
                 sender.sendMessage(ChatColor.GREEN + "Reset kick message:");
-                sender.sendMessage(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.KICK) + getGlobalDisabledText(MessageTypes.KICK));
+                sender.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.KICK)) + getGlobalDisabledText(MessageTypes.KICK));
             } else {
                 String spaceString = Util.getSpacedString(args, 0, args.length);
                 spaceString = CustomMessages.getConfiguration().setGlobalMessage(MessageTypes.KICK, spaceString);

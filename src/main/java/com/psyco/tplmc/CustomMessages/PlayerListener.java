@@ -8,8 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import javax.swing.text.DefaultEditorKit;
-
 public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)

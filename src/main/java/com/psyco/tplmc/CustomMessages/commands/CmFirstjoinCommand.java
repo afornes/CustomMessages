@@ -27,7 +27,7 @@ public class CmFirstjoinCommand extends CommandBase {
         if(args.length == 0){
             if(!CustomMessages.getConfiguration().permsRequired() || sender.hasPermission("CustomMessages.firstjoin")){
                 sender.sendMessage(ChatColor.GREEN + "Current first join message:");
-                sender.sendMessage(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN) + getGlobalDisabledText(MessageTypes.FIRSTJOIN));
+                sender.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN) + getGlobalDisabledText(MessageTypes.FIRSTJOIN)));
             } else {
                 sender.sendMessage(NO_PERMISSION);
             }
@@ -47,7 +47,7 @@ public class CmFirstjoinCommand extends CommandBase {
             } else if (args[0].equalsIgnoreCase("reset")) {
                 CustomMessages.getConfiguration().resetGlobalMessage(MessageTypes.FIRSTJOIN);
                 sender.sendMessage(ChatColor.GREEN + "Reset first join message:");
-                sender.sendMessage(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN) + getGlobalDisabledText(MessageTypes.FIRSTJOIN));
+                sender.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGlobalMessage(MessageTypes.FIRSTJOIN)) + getGlobalDisabledText(MessageTypes.FIRSTJOIN));
             } else {
                 String spaceString = Util.getSpacedString(args, 0, args.length);
                 spaceString = CustomMessages.getConfiguration().setGlobalMessage(MessageTypes.FIRSTJOIN, spaceString);

@@ -4,6 +4,7 @@ import com.psyco.tplmc.CustomMessages.CustomMessages;
 import com.psyco.tplmc.CustomMessages.MessageTypes;
 import com.psyco.tplmc.CustomMessages.Util;
 import com.psyco.tplmc.CustomMessages.configuration.defaultvariables.*;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -83,7 +84,10 @@ public class Configuration {
         try {
             setDefaults();
             config.save(configFile);
+            config.load(configFile);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }
