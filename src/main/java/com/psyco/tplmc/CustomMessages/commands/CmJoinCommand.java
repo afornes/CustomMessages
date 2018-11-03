@@ -29,7 +29,7 @@ public class CmJoinCommand extends CommandBase {
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("enable")) {
-                if (player.hasPermission("CustomMessages.join")) {
+                if (player.hasPermission("CustomMessages.join.disable")) {
                     if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.JOIN, true)) {
                         player.sendMessage(ChatColor.GREEN + "Your join message is now enabled");
                     } else {
@@ -39,7 +39,7 @@ public class CmJoinCommand extends CommandBase {
                     player.sendMessage(NO_PERMISSION);
                 }
             } else if (args[0].equalsIgnoreCase("disable")) {
-                if (player.hasPermission("CustomMessages.join")) {
+                if (player.hasPermission("CustomMessages.join.disable")) {
                     if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.JOIN, false)) {
                         player.sendMessage(ChatColor.GREEN + "Your join message is now disabled");
                     } else {
@@ -84,13 +84,13 @@ public class CmJoinCommand extends CommandBase {
             if (target != null) {
                 if (target.getName().equals(player.getName())) {
                     if (player.hasPermission("CustomMessages.join")) {
-                        if (args[0].equalsIgnoreCase("enable")) {
+                        if (args[0].equalsIgnoreCase("enable") && player.hasPermission("CustomMessages.join.disable")) {
                             if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.JOIN, true)) {
                                 player.sendMessage(ChatColor.GREEN + "Your join message is now enabled");
                             } else {
                                 player.sendMessage(ChatColor.RED + "Your join message is already enabled");
                             }
-                        } else if (args[0].equalsIgnoreCase("disable")) {
+                        } else if (args[0].equalsIgnoreCase("disable") && player.hasPermission("CustomMessages.join.disable")) {
                             if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.JOIN, false)) {
                                 player.sendMessage(ChatColor.GREEN + "Your join message is now disabled");
                             } else {

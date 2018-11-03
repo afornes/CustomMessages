@@ -9,6 +9,10 @@ public class VariableMaxOnline extends MessageVariable {
 
     @Override
     public String getReplacement(Player player, MessageTypes type) {
-        return String.valueOf(Bukkit.getMaxPlayers());
+        if (player.hasPermission("CustomMessages.morevariables")) {
+            return String.valueOf(Bukkit.getMaxPlayers());
+        } else {
+            return "";
+        }
     }
 }

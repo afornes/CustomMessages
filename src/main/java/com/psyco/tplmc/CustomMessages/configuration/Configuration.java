@@ -47,12 +47,12 @@ public class Configuration {
     }
 
     public void setDefaults() {
-        String defQuit = "&e/name &eleft the game.";
+        String defQuit = "&b/name &bleft the game.";
         if (config.isString("Config.Global-Quit-Message")) {
             defQuit = config.getString("Config.Global-Quit-Message");
             config.set("Config.Global-Quit-Message", null);
         }
-        String defJoin = "&e/name &ejoined the game.";
+        String defJoin = "&b/name &bjoined the game.";
         if (config.isString("Config.Global-Join-Message")) {
             defJoin = config.getString("Config.Global-Join-Message");
             config.set("Config.Global-Join-Message", null);
@@ -66,7 +66,7 @@ public class Configuration {
         config.addDefault("config.global-quit-message-enabled", true);
         config.addDefault("config.global-firstjoin-message", "&dWelcome /name to the server!");
         config.addDefault("config.global-firstjoin-message-enabled", false);
-        config.addDefault("config.global-kick-message", "&e/name &ewas kicked from the server.");
+        config.addDefault("config.global-kick-message", "&b/name &bwas kicked from the server.");
         config.addDefault("config.global-kick-message-enabled", false);
         config.addDefault("config.message-prefix", "[&aCM&f] ");
         config.addDefault("users.example.join", "&4Example joined the server");
@@ -130,6 +130,10 @@ public class Configuration {
 
     public String setPlayerMessage(Player p, MessageTypes action, String message) {
         String name = p.getName();
+        if (!p.hasPermission("CustomMessages.colors")) {
+            message = message.replaceAll("&[0-9,a-z]", "");
+        }
+        message = "&b" + message;
         config.set("users." + name + "." + action.getConfig(), message);
         saveConfig();
         return Util.translateColor(message);

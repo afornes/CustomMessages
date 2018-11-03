@@ -17,7 +17,7 @@ public class CmHelpCommand extends CommandBase {
 
     @Override
     public void onCommandSenderCommand(CommandSender sender, String label, String[] args) {
-        sender.sendMessage(ChatColor.GREEN + "Custom Messages - v " + CustomMessages.p.getDescription().getVersion() + " by psycowithespn");
+        sender.sendMessage(ChatColor.GREEN + "Custom Messages - v " + CustomMessages.p.getDescription().getVersion() + " by psycowithespn & robertoccu");
         if (sender.hasPermission("CustomMessages.join") && sender instanceof Player) {
             sender.sendMessage(ChatColor.GREEN + "/" + label + " join [message|reset|enable|disable]" + ChatColor.GRAY + " Views or modifies your join message");
         } else if (!CustomMessages.getConfiguration().permsRequired() && sender instanceof Player){

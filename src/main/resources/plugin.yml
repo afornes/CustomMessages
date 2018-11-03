@@ -1,8 +1,8 @@
 name: CustomMessages
-version: 2.3.1
+version: 2.4.6
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 description: Changes server messages
-authors: [psycowithespn]
+authors: [robertoccu, psycowithespn]
 soft-depend: [Vault]
 commands:
     cm:
@@ -24,6 +24,10 @@ permissions:
             CustomMessages.quit.group: true
             CustomMessages.noprefix: true
             CustomMessages.reload: true
+            CustomMessages.join.disable: true
+            CustomMessages.quit.disable: true
+            CustomMessages.morevariables: true
+            CustomMessages.colors: true
     CustomMessages.join:
         description: Allows you to set and reset your join message
         default: op
@@ -59,4 +63,16 @@ permissions:
         default: op
     CustomMessages.reload:
         description: Allows you to reload
+        default: op
+    CustomMessages.join.disable:
+        description: Allows you to disable and enable your join message
+        default: op
+    CustomMessages.quit.disable:
+        description: Allows you to disable and enable your quit message
+        default: op
+    CustomMessages.morevariables:
+        description: Allows you to put more variables in addition to /name and /nname
+        default: op
+    CustomMessages.colors:
+        description: Allows you to use colors on yours messages
         default: op

@@ -9,6 +9,10 @@ public class VariableCount extends MessageVariable {
 
     @Override
     public String getReplacement(Player player, MessageTypes type) {
-        return String.valueOf(Bukkit.getOfflinePlayers().length);
+        if (player.hasPermission("CustomMessages.morevariables")) {
+            return String.valueOf(Bukkit.getOfflinePlayers().length);
+        } else {
+            return "";
+        }
     }
 }

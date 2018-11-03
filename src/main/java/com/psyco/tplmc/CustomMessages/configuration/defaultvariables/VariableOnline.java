@@ -9,10 +9,14 @@ public class VariableOnline extends MessageVariable {
 
     @Override
     public String getReplacement(Player player, MessageTypes type) {
-        if (type == MessageTypes.QUIT) {
-            return String.valueOf(Bukkit.getOnlinePlayers().length - 1);
+        if (player.hasPermission("CustomMessages.morevariables")) {
+            if (type == MessageTypes.QUIT) {
+                return String.valueOf(Bukkit.getOnlinePlayers().size() - 1);
+            } else {
+                return String.valueOf(Bukkit.getOnlinePlayers().size());
+            }
         } else {
-            return String.valueOf(Bukkit.getOnlinePlayers().length);
+            return "";
         }
     }
 }

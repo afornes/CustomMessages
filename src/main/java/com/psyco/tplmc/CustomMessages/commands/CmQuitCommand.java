@@ -30,7 +30,7 @@ public class CmQuitCommand extends CommandBase {
         } else if (args.length == 1) {
             Player target = Bukkit.getPlayer(args[0]);
             if (args[0].equalsIgnoreCase("enable")) {
-                if (player.hasPermission("CustomMessages.quit")) {
+                if (player.hasPermission("CustomMessages.quit.disable")) {
                     if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.QUIT, true)) {
                         player.sendMessage(ChatColor.GREEN + "Your quit message is now enabled");
                     } else {
@@ -40,7 +40,7 @@ public class CmQuitCommand extends CommandBase {
                     player.sendMessage(NO_PERMISSION);
                 }
             } else if (args[0].equalsIgnoreCase("disable")) {
-                if (player.hasPermission("CustomMessages.quit")) {
+                if (player.hasPermission("CustomMessages.quit.disable")) {
                     if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.QUIT, false)) {
                         player.sendMessage(ChatColor.GREEN + "Your quit message is now disabled");
                     } else {
@@ -84,13 +84,13 @@ public class CmQuitCommand extends CommandBase {
             if (target != null) {
                 if (target.getName().equals(player.getName())) {
                     if (player.hasPermission("CustomMessages.quit")) {
-                        if (args[0].equalsIgnoreCase("enable")) {
+                        if (args[0].equalsIgnoreCase("enable") && player.hasPermission("CustomMessages.quit.disable")) {
                             if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.QUIT, true)) {
                                 player.sendMessage(ChatColor.GREEN + "Your quit message is now enabled");
                             } else {
                                 player.sendMessage(ChatColor.RED + "Your quit message is already enabled");
                             }
-                        } else if (args[0].equalsIgnoreCase("disable")) {
+                        } else if (args[0].equalsIgnoreCase("disable") && player.hasPermission("CustomMessages.quit.disable")) {
                             if (CustomMessages.getConfiguration().setPlayerMessageEnabled(player, MessageTypes.QUIT, false)) {
                                 player.sendMessage(ChatColor.GREEN + "Your quit message is now disabled");
                             } else {
