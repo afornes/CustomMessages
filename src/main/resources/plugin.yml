@@ -1,5 +1,5 @@
 name: CustomMessages
-version: 2.4.6
+version: 2.4.7_1.15.1
 main: com.psyco.tplmc.CustomMessages.CustomMessages
 description: Changes server messages
 authors: [robertoccu, psycowithespn]

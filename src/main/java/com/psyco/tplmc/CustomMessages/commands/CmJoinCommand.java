@@ -55,18 +55,27 @@ public class CmJoinCommand extends CommandBase {
                     player.sendMessage(NO_PERMISSION);
                 }
             } else {
-                Player target = Bukkit.getPlayer(args[0]);
-                if (target != null) {
+                String first = args[0].split(" ")[0];
+                if (first.equals("user")) {
                     if (player.hasPermission("CustomMessages.join.other")) {
-                        player.sendMessage(ChatColor.GREEN + target.getName() + "'s current join message:");
-                        player.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getPlayerMessage(target, MessageTypes.JOIN)) + getPlayerDisabledText(target, MessageTypes.JOIN));
+                        Player target = Bukkit.getPlayer(args[0]);
+                        if (target != null) {
+                            player.sendMessage(ChatColor.GREEN + target.getName() + "'s current join message:");
+                            player.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getPlayerMessage(target, MessageTypes.JOIN)) + getPlayerDisabledText(target, MessageTypes.JOIN));
+                        } else {
+                            player.sendMessage(ChatColor.GREEN + "User " + args[0] + " not exists.");
+                        }
                     } else {
                         player.sendMessage(NO_PERMISSION);
                     }
-                } else if (CustomMessages.getVaultCompat().isGroup(args[0])) {
+                } else if (first.equals("group")) {
                     if (player.hasPermission("CustomMessages.join.group")) {
-                        player.sendMessage(ChatColor.GREEN + "Group " + args[0] + "'s current join message:");
-                        player.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGroupMessage(args[0], MessageTypes.JOIN)) + getGroupDisabledText(args[0], MessageTypes.JOIN));
+                        if (CustomMessages.getVaultCompat().isGroup(args[0])) {
+                            player.sendMessage(ChatColor.GREEN + "Group " + args[0] + "'s current join message:");
+                            player.sendMessage(Util.translateColor(CustomMessages.getConfiguration().getGroupMessage(args[0], MessageTypes.JOIN)) + getGroupDisabledText(args[0], MessageTypes.JOIN));
+                        } else {
+                            player.sendMessage(ChatColor.GREEN + "Group " + args[0] + " not exists.");
+                        }
                     } else {
                         player.sendMessage(NO_PERMISSION);
                     }
